@@ -14,31 +14,31 @@ namespace PlatformDemo.Controller
         }
 
         [HttpGet] 
-        [Route("api/ticket/{id}")]
+        [Route("api/tickets/{id}")]
         public IActionResult Get(int id)
         {
             return Ok($"Reading ticket #{id}");
         }
 
         [HttpPost]
-        [Route("api/ticket/")]
+        [Route("api/tickets/")]
         public IActionResult Post(int id)
         {
             return Ok($"Creating a ticket");
         }
 
         [HttpPut]
-        [Route("api/ticket/{id}")]
+        [Route("api/tickets/{id}")]
         public IActionResult Put()
         {
             return Ok($"Updating a ticket");
         }
 
         [HttpDelete]
-        [Route("api/ticket/{id}")]
+        [Route("api/tickets/{id}")]
         public IActionResult Delete(int id)
         {
-            return Ok($"Reading ticket #{id}");
+            return Ok($"Deleting ticket #{id}");
         }
     }
 }
