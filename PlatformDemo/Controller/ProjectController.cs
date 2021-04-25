@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
+using PlatformDemo.Models;
 
 namespace PlatformDemo.Controller
 {
@@ -7,31 +8,42 @@ namespace PlatformDemo.Controller
     public class ProjectController : ControllerBase
     {
         [HttpGet]
-        [Route("api/items")]
+        [Route("api/projects")]
         public IActionResult Get()
         {
-            return Ok("Got items");
+            return Ok("Got projects");
         }
 
-        [HttpPost]
-        [Route("api/item")]
-        public IActionResult Post()
+        [HttpGet]
+        [Route("api/projects/{id}/tickets/")]
+        public IActionResult Get(string id, string tid)
         {
-            return Ok("Created item");
-        }
-
-        [HttpPost]
-        [Route("/api/item/{id}/tickets")]
-        public IActionResult Post(string id, string tId)
-        {
-            return Ok($"created item {id} with ticket #{tId}");
+            if( tid == null)
+            {
+                return Ok($"Getting all tickets from project #{id}");
+            }
+            else
+            {
+                return Ok($"Getting project #{id} with ticket #{tid}");
+            }
+            
         }
 
         [HttpPut]
-        [Route("api/item/{id}")]
-        public IActionResult Put(string id)
+        [Route("/api/projects/{pid}/tickets")]
+        public IActionResult Put([FromQuery]Ticket ticket)
         {
-            return Ok($"updating ticket {id}");
+            if (ticket == null) return BadRequest("Parameters are not provided properly");
+            if(ticket.TicketId == 0)
+            {
+                return Ok($"Updating all tickets for project #{ticket.ProjectId}");
+            }
+            else
+            {
+                return Ok($"Updating ticket #{ticket.TicketId} for project #{ticket.ProjectId} title: {ticket.Title}, description {ticket.Description}");
+            }
+            
         }
+
     }
 }
